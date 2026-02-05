@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"> //new file
+<head>
+<meta charset="UTF-8">
+<title>Live Character Counter</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+    font-family: system-ui, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #020617, #0f172a);
+  }
+
+  .container {
+    width: 70vw;
+    max-width: 600px;
+    position: relative;
+  }
+
+  textarea {
+    width: 100%;
+    height: 180px;
+    padding: 20px;
+    font-size: 1.1rem;
+    color: #e5e7eb;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    outline: none;
+    resize: none;
+    backdrop-filter: blur(8px);
+    transition: border 0.3s ease;
+  }
+
+  textarea::placeholder {
+    color: #9ca3af;
+  }
+
+  textarea:focus {
+    border-color: #3b82f6;
+  }
+
+  .counter {
+    position: absolute;
+    right: 16px;
+    bottom: -32px;
+    font-size: 0.95rem;
+    color: #9ca3af;
+    transition: color 0.3s ease;
+  }
+
+  .counter.warning {
+    color: #f87171;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <textarea
+    id="message"
+    placeholder="Type your message..."
+    maxlength="150"
+  ></textarea>
+
+  <div id="charCount" class="counter">0/150</div>
+</div>
+
+<script>
+  const textarea = document.getElementById("message");
+  const counter = document.getElementById("charCount");
+  const MAX = 150;
+
+  textarea.addEventListener("input", () => {
+    const length = textarea.value.length;
+    counter.textContent = `${length}/${MAX}`;
+
+    if (MAX - length <= 20) {
+      counter.classList.add("warning");
+    } else {
+      counter.classList.remove("warning");
+    }
+  });
+</script>
+
+</body>
+</html>
